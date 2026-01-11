@@ -1,4 +1,14 @@
 {
+  "name": "gigflow",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon -r dotenv/config --experimental-json-modules server.js"
+  },
+  "author": "priti parkhe",
+  "license": "ISC",
+  "description": "",
   "dependencies": {
     "bcryptjs": "^3.0.3",
     "cookie-parser": "^1.4.7",
