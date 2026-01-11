@@ -1,0 +1,75 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+lerna-debug.log*
+
+# Diagnostic reports
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directories
+coverage
+*.lcov
+.nyc_output
+
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# Build output
+build/
+dist/
+.next
+.nuxt
+.cache/
+.parcel-cache
+
+# React / framework caches
+.svelte-kit/
+**/.vitepress/dist
+**/.vitepress/cache
+.vuepress/dist
+.temp
+.docusaurus
+.serverless/
+.fusebox/
+.dynamodb/
+.firebase/
+
+# Editor / OS files
+*.sublime*
+.DS_*
+Thumbs.db
+
+# Yarn v2/v3
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Optional caches
+.npm
+.eslintcache
+.stylelintcache
+.node_repl_history
+
+# Parcel / Vite / Next.js / Nuxt.js / Gatsby specific
+.next
+out
+.cache/
+.svelte-kit/
