@@ -6,7 +6,7 @@ const gigSchema = new mongoose.Schema(
       type: String,
       required: true,
       trim: true,
-      index: true, // search by title
+      index: true,
     },
 
     description: {
@@ -17,10 +17,10 @@ const gigSchema = new mongoose.Schema(
     budget: {
       type: Number,
       required: true,
-      min: 0,
+      min: 1, 
     },
 
-    ownerId: {
+    owner: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
