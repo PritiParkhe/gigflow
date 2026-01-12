@@ -60,7 +60,7 @@ export const hireFreelancer = async (req, res) => {
       { session }
     );
 
-    // 6️⃣ Commit transaction
+    // 6️ Commit transaction
     await session.commitTransaction();
     session.endSession();
 
