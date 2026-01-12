@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import Bid from "../models/bid.model.js";
 import Gig from "../models/gig.model.js";
+import { getIO } from "../socket/socket.js"; 
 
 /**
  * Hire a freelancer
@@ -15,6 +16,7 @@ export const hireFreelancer = async (req, res) => {
 
   try {
     const { bidId } = req.params;
+    const io = getIO(); // Get initialized Socket.io instance
 
     // 1️ Find the bid
     const bid = await Bid.findById(bidId).session(session);
@@ -38,7 +40,7 @@ export const hireFreelancer = async (req, res) => {
       return res.status(400).json({ message: "Gig already assigned" });
     }
 
-    // 3️ Ownership check (after locking gig)
+    // 3️ Ownership check
     if (gig.owner.toString() !== req.user._id.toString()) {
       await session.abortTransaction();
       session.endSession();
@@ -58,9 +60,25 @@ export const hireFreelancer = async (req, res) => {
       { session }
     );
 
-    // 6 Commit transaction
+    // 6️⃣ Commit transaction
     await session.commitTransaction();
     session.endSession();
+
+    // 7️ Fetch all rejected bids to notify freelancers
+
+    // Notify hired freelancer
+    io.to(bid.freelancerId.toString()).emit("bid:hired", {
+      gigId: gig._id,
+      message: "You have been hired!",
+    });
+
+    // 8. Notify rejected freelancers
+    rejectedBids.forEach((b) => {
+      io.to(b.freelancerId.toString()).emit("bid:rejected", {
+        gigId: gig._id,
+        message: "Your bid was rejected",
+      });
+    });
 
     return res.status(200).json({
       message: "Freelancer hired successfully",
